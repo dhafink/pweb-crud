@@ -85,6 +85,8 @@ CREATE TABLE calon_siswa (
 > Tabel dengan data siswa lengkap dan tombol Edit & Hapus
 ![image](https://github.com/user-attachments/assets/9dd0e975-75a3-4068-80eb-af58b91c9f3c)
 
+## Database Siswa yang sudah mendaftar
+![image](https://github.com/user-attachments/assets/b27821ff-c087-4f7c-965c-6f207390853a)
 
 ---
 
