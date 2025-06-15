@@ -70,19 +70,21 @@ CREATE TABLE calon_siswa (
 
 ### Beranda
 
-> Menu "Daftar Baru" dan "Lihat Pendaftar" dengan desain modern pastel
+![image](https://github.com/user-attachments/assets/0b97ff07-861f-47df-b2dc-3763c201c40b)
+
 
 ### Form Pendaftaran
 
-> Form interaktif untuk memasukkan data siswa
+![image](https://github.com/user-attachments/assets/8d7e20de-d5a6-472a-88ad-2411535d9183)
 
-### Daftar Siswa
 
-> Tabel dengan data siswa lengkap dan tombol Edit & Hapus
-
-### Edit Data
+### Daftar Siswa dan Edit Data
 
 > Halaman edit data siswa yang sudah ada
+
+> Tabel dengan data siswa lengkap dan tombol Edit & Hapus
+![image](https://github.com/user-attachments/assets/9dd0e975-75a3-4068-80eb-af58b91c9f3c)
+
 
 ---
 
@@ -91,6 +93,22 @@ CREATE TABLE calon_siswa (
 ### 🔹 `index.php`
 
 Halaman awal berisi navigasi ke form dan list siswa
+ `<!DOCTYPE html>
+<html>
+<head>
+    <title>Beranda - Pendaftaran Siswa Baru</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Pendaftaran Siswa Baru</h1>
+    <div class="menu">
+        <a href="form-daftar.php" class="btn">Daftar Baru</a>
+        <a href="list-siswa.php" class="btn">Lihat Pendaftar</a>
+    </div>
+</div>
+</body>
+</html>`
 
 ### 🔹 `form-daftar.php`
 
