@@ -88,56 +88,107 @@ CREATE TABLE calon_siswa (
 
 ---
 
-## 🧩 Penjelasan File
+## 🧩 Penjelasan File & Kode Utama
 
-### 🔹 `index.php`
+### 🔹 `config.php`
 
-Halaman awal berisi navigasi ke form dan list siswa
- `<!DOCTYPE html>
-<html>
-<head>
-    <title>Beranda - Pendaftaran Siswa Baru</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-    <h1>Pendaftaran Siswa Baru</h1>
-    <div class="menu">
-        <a href="form-daftar.php" class="btn">Daftar Baru</a>
-        <a href="list-siswa.php" class="btn">Lihat Pendaftar</a>
-    </div>
-</div>
-</body>
-</html>`
+Digunakan untuk koneksi ke database:
 
-### 🔹 `form-daftar.php`
+```php
+$host = "localhost";
+$user = "root";
+$password = "";
+$db = "pendaftaran_siswa";
 
-Form input data siswa baru
-
-### 🔹 `proses-pendaftaran.php`
-
-Menerima input form, menyimpan ke MySQL
-
-### 🔹 `list-siswa.php`
-
-Menampilkan semua siswa dari database + tombol edit & hapus
-
-### 🔹 `proses-edit.php`
-
-Memproses pembaruan data
-
-### 🔹 `hapus.php`
-
-Menghapus data dari tabel berdasarkan `id`
-
-### 🔹 `style.css`
-
-Tampilan modern dengan warna pastel (pink, biru, putih) dan animasi halus
+$koneksi = mysqli_connect($host, $user, $password, $db);
+if (!$koneksi) {
+    die("Koneksi ke database gagal: " . mysqli_connect_error());
+}
+```
 
 ---
 
-> 📌 Tugas ini adalah implementasi penuh CRUD menggunakan PHP dan MySQL, dengan tampilan yang ditingkatkan agar lebih menarik dan profesional.
+### 🔹 `form-daftar.php`
+
+Berisi form HTML yang mengirim data ke `proses-pendaftaran.php`:
+
+```php
+<form action="proses-pendaftaran.php" method="POST">
+    <input type="text" name="nama" required>
+    <textarea name="alamat" required></textarea>
+    <input type="radio" name="jenis_kelamin" value="Laki-laki">
+    <select name="agama">
+        <option>Islam</option>
+        <option>Kristen</option>
+    </select>
+    <input type="text" name="asal_sekolah">
+    <input type="email" name="email">
+    <input type="text" name="no_telepon">
+    <button type="submit">Daftar</button>
+</form>
+```
+
+---
+
+### 🔹 `proses-pendaftaran.php`
+
+File ini memproses dan menyimpan data ke database:
+
+```php
+include("config.php");
+$sql = "INSERT INTO calon_siswa (nama, alamat, jenis_kelamin, agama, asal_sekolah, email, no_telepon)
+        VALUES ('$nama', '$alamat', '$jenis_kelamin', '$agama', '$asal_sekolah', '$email', '$no_telepon')";
+mysqli_query($koneksi, $sql);
+```
+
+---
+
+### 🔹 `list-siswa.php`
+
+Menampilkan seluruh data siswa dari database dalam bentuk tabel:
+
+```php
+include("config.php");
+$result = mysqli_query($koneksi, "SELECT * FROM calon_siswa");
+while ($siswa = mysqli_fetch_array($result)) {
+    echo "<tr>",
+         "<td>".$siswa['nama']."</td>",
+         "<td><a href='proses-edit.php?id={$siswa['id']}'>Edit</a></td>",
+         "<td><a href='hapus.php?id={$siswa['id']}'>Hapus</a></td>",
+         "</tr>";
+}
+```
+
+---
+
+### 🔹 `proses-edit.php`
+
+Mengupdate data siswa berdasarkan ID:
+
+```php
+include("config.php");
+$sql = "UPDATE calon_siswa SET nama='$nama', alamat='$alamat' WHERE id=$id";
+mysqli_query($koneksi, $sql);
+```
+
+---
+
+### 🔹 `hapus.php`
+
+Menghapus data siswa berdasarkan ID:
+
+```php
+include("config.php");
+$id = $_GET['id'];
+$sql = "DELETE FROM calon_siswa WHERE id=$id";
+mysqli_query($koneksi, $sql);
+```
+
+---
+
+> 📌 Tugas ini adalah implementasi penuh dari sistem CRUD menggunakan PHP dan MySQL.
 
 ---
 
 © Dhafin Kurniawan - 5054231016
+
